@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/CanopyTax/cpr-mask.svg?branch=master)](https://travis-ci.org/CanopyTax/cpr-mask)
 ###For lack of a good api explanation here are the propTypes for cpr-mask
 ```javascript
   propTypes = {
