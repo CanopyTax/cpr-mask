@@ -5,7 +5,8 @@
   "main": "lib/cpr-mask.component.js",
   "scripts": {
     "test": "jest --coverage",
-    "build": "babel src --out-dir lib"
+    "build": "babel src --out-dir lib",
+		"lint": "eslint ."
   },
   "repository": {
     "type": "git",
