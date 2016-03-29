@@ -1,11 +1,11 @@
 {
   "name": "cpr-mask",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A masking component for react",
   "main": "lib/cpr-mask.component.js",
   "scripts": {
     "test": "jest",
-		"test-coverage": "jest --coverage",
+    "test-coverage": "jest --coverage",
     "build": "babel src --out-dir lib",
     "lint": "eslint ."
   },
