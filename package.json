@@ -31,6 +31,7 @@
     "react-dom": "^15.0.0-rc.2"
   },
   "devDependencies": {
+    "babel-cli": "^6.6.5",
     "babel-jest": "^9.0.3",
     "babel-plugin-transform-object-rest-spread": "^6.6.5",
     "babel-polyfill": "^6.7.4",
