@@ -67,6 +67,7 @@ export default class InputControl extends React.Component {
             ? <span>{this.props.sideChars.left}</span>
             : null}
           <input
+	        type="text"
             ref={(inputRef) => this.input = inputRef}
             value={this.props.masks.length ? this.state.maskValue : this.state.value}
             onChange={this.handleChange.bind(this)}
@@ -127,7 +128,7 @@ export default class InputControl extends React.Component {
 		sideChars: {},
 		encoder: value => value,
 		decoder: value => value,
-  }
+  };
   static propTypes = {
     //name given to the surrounding div
     className: PropTypes.string,
@@ -161,5 +162,5 @@ export default class InputControl extends React.Component {
 		//Function that changes value as it comes into cpr-mask
 		//Encoder should probably be used if you're using a decoder
 		encoder: PropTypes.func,
-  }
+  };
 }
