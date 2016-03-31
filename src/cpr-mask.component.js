@@ -67,7 +67,7 @@ export default class InputControl extends React.Component {
             ? <span>{this.props.sideChars.left}</span>
             : null}
           <input
-	        type="text"
+            type="text"
             ref={(inputRef) => this.input = inputRef}
             value={this.props.masks.length ? this.state.maskValue : this.state.value}
             onChange={this.handleChange.bind(this)}
