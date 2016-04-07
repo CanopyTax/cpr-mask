@@ -1,6 +1,6 @@
 {
   "name": "cpr-mask",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A masking component for react",
   "main": "lib/cpr-mask.component.js",
   "scripts": {
@@ -25,9 +25,9 @@
     "url": "https://github.com/CanopyTax/cpr-mask/issues"
   },
   "homepage": "https://github.com/CanopyTax/cpr-mask#readme",
-	"dependencies": {
+  "dependencies": {
     "lodash": "^4.6.1"
-	},
+  },
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-jest": "^9.0.3",
