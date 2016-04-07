@@ -45,7 +45,7 @@ export function handleMasks(input) {
     if (newMask === false) {
       //stick with the old mask
       newMask = this.state.maskValue;
-      mask = this.state.maskPattern;
+      mask.pattern = this.state.maskPattern;
     }
     //If you're converting to a new mask you'll need a new cursor
     selectionMove = getNewMaskCursor(newValue, mask.pattern);
