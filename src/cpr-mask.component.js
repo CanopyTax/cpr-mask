@@ -134,15 +134,18 @@ export default class InputControl extends React.Component {
     className: PropTypes.string,
     //class given to the input field
     inputClass: PropTypes.string,
-    //class given to the error message
-    errorClass: PropTypes.string,
     //What value the component starts with
+		initialValue: PropTypes.string,
+    //class given to the error message
     invalidClass: PropTypes.string,
     //Decides which side of an input field the text appears on
     alignment: PropTypes.oneOf(["left", "right"]),
     //The message displayed when the input is invalid
     nonValidMsg: PropTypes.string,
+		//The class applied to the nonValidMsg span
+		nonValidMsgClass: PropTypes.string,
     //Characters to display on either side of the input
+		placeholder: PropTypes.string,
     sideChars: PropTypes.shape({
       left: PropTypes.string,
       right: PropTypes.string
