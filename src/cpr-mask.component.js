@@ -41,7 +41,7 @@ export default class InputControl extends React.Component {
 			if (testForValidChars(encodedValue, props.validChars)) {
 				this.setState({
 					maskValue: encodedValue,
-					value: encodedValue
+					value: encodedValue || "",
 				})
 			}
 		} else {
@@ -50,7 +50,7 @@ export default class InputControl extends React.Component {
 			})
 			this.setState({
 				maskValue: (props.initialValue && mask) ? valueToMask(encodedValue, mask.pattern, props.filler) : "",
-				value: encodedValue,
+				value: encodedValue || "",
 				maskPattern: mask ? mask.pattern : null,
 			});
 		}
