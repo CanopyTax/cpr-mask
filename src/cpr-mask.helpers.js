@@ -1,5 +1,5 @@
-import {getSelection, setSelection} from 'react/lib/ReactInputSelection';
 import { find } from 'lodash';
+
 export function handleValidChars(input) {
   //only tests the input against the regex
   if (testForValidChars(input, this.props.validChars)) {
@@ -23,8 +23,7 @@ export function handleNoMasks(input) {
 }
 
 export function handleMasks(input) {
-  //First get the current cursor position
-  let cursor = getSelection(this.input);
+  const cursor = {start: this.input.selectionStart, end: this.input.selectionEnd};
   //Mask to mask will return the new input masked with the current mask
   let {newMask, selectionMove} = maskToMask(
     input,
@@ -64,10 +63,7 @@ export function handleMasks(input) {
     maskPattern: mask.pattern,
   }, () => {
     //The selection needs to be set after a render hence the callback
-    setSelection(
-      this.input,
-      {start: cursor.start + selectionMove, end: cursor.start + selectionMove}
-    );
+    this.input.setSelectionRange(cursor.start + selectionMove, cursor.start + selectionMove);
     if (this.props.onChange) this.props.onChange(this.state.value);
   })
 }

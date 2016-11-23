@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import { find } from 'lodash';
-import { getSelection, setSelection } from 'react/lib/ReactInputSelection';
 import { valueToMask, checkMasks, getPlaceholder, handleValidChars, handleNoMasks, handleMasks, getNewMaskCursor, testForValidChars } from './cpr-mask.helpers.js';
 
 export default class InputControl extends React.Component {
@@ -90,9 +89,8 @@ export default class InputControl extends React.Component {
 
   selectionHandle(e) {
     if (this.state.maskPattern) {
-      let oldCursor = getSelection(this.input);
       let newCursor = getNewMaskCursor(this.state.value, this.state.maskPattern);
-      if (oldCursor.start > newCursor) setSelection(this.input, {start: newCursor, end: newCursor});
+      if (this.input.selectionStart > newCursor) this.input.setSelectionRange(newCursor, newCursor);
     }
   }
   onFocus(e) {
