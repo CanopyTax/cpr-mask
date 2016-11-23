@@ -1,6 +1,6 @@
 {
   "name": "cpr-mask",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A masking component for react",
   "main": "lib/cpr-mask.component.js",
   "scripts": {
