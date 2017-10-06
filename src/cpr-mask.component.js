@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { find } from 'lodash';
 import { valueToMask, checkMasks, getPlaceholder, handleValidChars, handleNoMasks, handleMasks, getNewMaskCursor, testForValidChars } from './cpr-mask.helpers.js';
 
