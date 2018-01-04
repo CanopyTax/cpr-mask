@@ -9,8 +9,8 @@ or something Cpr-mask can do that for you.
 
 Cpr-mask can also be used to make an input that only allows characters that match a regular expression.
 
-##API
-###masks
+## API
+### masks
 
 ```javascript
 [
@@ -40,7 +40,7 @@ The condition property is what determines what mask is currently displayed. It's
 and expects true/false as the return.
 The condition functions are run in order of the array and the first to return true will be used.
 
-####Incompatible Masks
+#### Incompatible Masks
 It's possible to give cpr-mask two or masks that would conflict with each other.
 An example would be.
 ```javascript
@@ -58,14 +58,14 @@ An example would be.
 This wouldn't work because "abcd" is okay with the first mask but once you type in "abcde" and it would try to switch
 those would be invalid characters. Cpr-mask will throw a `Incompatible masks` error in cases like these.
 
-###Encoding and Decoding cpr-mask value
+### Encoding and Decoding cpr-mask value
 
 Cpr-mask gives you the ability to encode and decode values coming from and going to the input.
 Encode is a function that will be run with the `initialValue` prop before cpr-mask attempts to mask the value.
 Decode is a function that is just run onBlur for the value coming out of cpr-mask.
 Both function were written for Canopy convenience can the same effect can be acheived other ways.
 
-###Cpr-mask props
+### Cpr-mask props
 The majority of the props concern how the cpr-mask component is styled.
 - className: The outermost class of cpr-mask
 - inputClass: The css class given to the input field
@@ -97,6 +97,6 @@ The simplified html is like this
 	<span className={props.nonValidMsgClass}>{props.nonValidMsg}</span>
 </div>
 ```
-###Cpr-mask interaction
+### Cpr-mask interaction
 The two available ways to get the non-masked value out of cpr-mask are `onChange` and `onBlur`.
 These functions can be provided by props and will be given the non-masked value on invocation.
