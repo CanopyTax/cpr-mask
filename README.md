@@ -83,6 +83,7 @@ The majority of the props concern how the cpr-mask component is styled.
 ```
 - filler: The character used for empty spots in the mask. Default is `" "`.
 - placeholder: The placeholder given to the input. If none is provided cpr-mask will use a mask with the filler prop characters.
+- disabled: disable the input
 
 *Note: The validateMethod dependant classes apply only if the input has been blurred once.*
 

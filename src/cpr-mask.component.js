@@ -70,6 +70,7 @@ export default class InputControl extends React.Component {
 						}
 						<input
 							type="text"
+							disabled={this.props.disabled}
 							ref={(inputRef) => this.input = inputRef}
 							value={this.props.masks.length ? this.state.maskValue : this.state.value}
 							onChange={this.handleChange.bind(this)}
