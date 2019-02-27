@@ -188,14 +188,14 @@ describe("inputControl", () => {
   })
   describe("getMaskSlice", () => {
     it("should get back a full slice of a pattern", () => {
-      expect(getMaskSlice("1-1_1-", 0, 3)).toEqual({maskSlice: "111", selectionMove: 2});
-      expect(getMaskSlice("11--11", 0, 2)).toEqual({maskSlice: "11", selectionMove: 0});
-      expect(getMaskSlice("11--AA", 0, 3)).toEqual({maskSlice: "11A", selectionMove: 2});
-      expect(getMaskSlice("11--WW", 2, 4)).toEqual({maskSlice: "WW", selectionMove: 2});
+      expect(getMaskSlice("1-1_1-", "1", 0, 3)).toEqual({maskSlice: "111", selectionMove: 2});
+      expect(getMaskSlice("11--11", "1", 0, 2)).toEqual({maskSlice: "11", selectionMove: 0});
+      expect(getMaskSlice("11--AA", "A", 0, 3)).toEqual({maskSlice: "11A", selectionMove: 2});
+      expect(getMaskSlice("11--WW", "W", 2, 4)).toEqual({maskSlice: "WW", selectionMove: 2});
     })
     it("should stop at the end of the pattern even without all the characters", () => {
-      expect(getMaskSlice("11------", 0, 3)).toEqual({maskSlice: "11", selectionMove: 6});
-      expect(getMaskSlice("1------1", 0, 3)).toEqual({maskSlice: "11", selectionMove: 6});
+      expect(getMaskSlice("11------", "1", 0, 3)).toEqual({maskSlice: "11", selectionMove: 6});
+      expect(getMaskSlice("1------1", "1", 0, 3)).toEqual({maskSlice: "11", selectionMove: 6});
     })
   })
   describe("oldToNewMask", () => {

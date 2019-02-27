@@ -184,7 +184,7 @@ function charMatchesRegexPattern(pattern, char) {
 	if (pattern === "1") return /\d/.test(char);
 	if (pattern === "W") return /[A-Za-z0-9]/.test(char);
 	if (pattern === "*") return /./.test(char);
-	return pattern === char;
+	return true;
 }
 
 export function getMaskSlice(pattern, input, start, stop) {
@@ -193,15 +193,18 @@ export function getMaskSlice(pattern, input, start, stop) {
 	let i = start;
 	let selectionMove = 0;
 	while (found.length < totalRequired) {
-		if (/[A1W*]/.test(pattern[i]) || pattern[i] === input[i]) {
+		if (/[A1W*]/.test(pattern[i])) {
 			found += pattern[i];
+		} else if (pattern[i] === input[i]) {
+			found += pattern[i];
+			selectionMove++;
 		} else {
-			selectionMove++
+			selectionMove++;
 		}
-			if (i >= pattern.length - 1) {
-				break;
-			}
-			i++;
+		if (i >= pattern.length - 1) {
+			break;
+		}
+		i++;
 	}
 	return {maskSlice: found, selectionMove};
 }
