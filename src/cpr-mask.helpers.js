@@ -102,7 +102,7 @@ export function maskToMask(input, oldMask, maskPattern, cursor, filler = " ") {
 
 
 export function adding(input, oldMask, maskPattern, cursor, lengthDiff, filler) {
-	let {maskSlice, selectionMove} = getMaskSlice(maskPattern, cursor - lengthDiff, cursor);
+	let {maskSlice, selectionMove} = getMaskSlice(maskPattern, input, cursor - lengthDiff, cursor);
 	let inputSlice = input.slice(cursor - lengthDiff, cursor);
 	if (!checkCharsMatchPattern(maskSlice, inputSlice, filler)) {
 		return {
@@ -158,14 +158,14 @@ export function checkForAddingOrReplacing(input, oldMask, inputStop, maskPattern
 }
 
 export function oldToNewMask(characters, oldMask, start, pattern, filler) {
-	let replacePattern = pattern.slice(start).replace(/[A1W*]/g, "")
+	let replacePattern = pattern.slice(start).replace(/[A1W*]/g, "");
 	let charBank = characters;
 	let newMask = oldMask.slice(0, start) + oldMask.slice(start).split("").map((char, index) => {
 		if (char === replacePattern[0]) {
+			if (charBank[0] === replacePattern[0]) charBank = charBank.slice(1)
 			replacePattern = replacePattern.slice(1);
 			return char;
-		}
-		else if (charBank) {
+		} else if (charBank) {
 			let replacement = charBank[0];
 			charBank = charBank.slice(1);
 			return replacement;
@@ -184,15 +184,16 @@ function charMatchesRegexPattern(pattern, char) {
 	if (pattern === "1") return /\d/.test(char);
 	if (pattern === "W") return /[A-Za-z0-9]/.test(char);
 	if (pattern === "*") return /./.test(char);
+	return pattern === char;
 }
 
-export function getMaskSlice(pattern, start, stop) {
+export function getMaskSlice(pattern, input, start, stop) {
 	let totalRequired = stop - start;
 	let found = "";
 	let i = start;
 	let selectionMove = 0;
 	while (found.length < totalRequired) {
-		if (/[A1W*]/.test(pattern[i])) {
+		if (/[A1W*]/.test(pattern[i]) || pattern[i] === input[i]) {
 			found += pattern[i];
 		} else {
 			selectionMove++
