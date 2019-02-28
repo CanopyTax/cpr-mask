@@ -37,7 +37,7 @@
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.4.2",
+    "babel-jest": "^24.1.0",
     "enzyme": "^2.6.0",
     "jest": "^24.1.0",
     "lodash": "^4.17.11",
