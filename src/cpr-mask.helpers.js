@@ -40,6 +40,8 @@ export function handleMasks(input) {
 	if (mask.pattern !== this.state.maskPattern) {
 		//Mask a new newMask
 		newMask = valueToMask(newValue, mask.pattern, this.props.filler);
+		//Use new pattern to get newValue
+		newValue = maskToValue(newMask, mask.pattern, this.props.filler);
 		//If that fails
 		if (newMask === false) {
 			//stick with the old mask
@@ -102,7 +104,7 @@ export function maskToMask(input, oldMask, maskPattern, cursor, filler = " ") {
 
 
 export function adding(input, oldMask, maskPattern, cursor, lengthDiff, filler) {
-	let {maskSlice, selectionMove} = getMaskSlice(maskPattern, cursor - lengthDiff, cursor);
+	let {maskSlice, selectionMove} = getMaskSlice(maskPattern, input, cursor - lengthDiff, cursor);
 	let inputSlice = input.slice(cursor - lengthDiff, cursor);
 	if (!checkCharsMatchPattern(maskSlice, inputSlice, filler)) {
 		return {
@@ -129,7 +131,7 @@ export function deleting(input, oldMask, maskPattern, cursor, filler) {
 
 export function checkCharsMatchPattern(pattern, chars, filler) {
 	for (let i = 0; i < pattern.length; i++) {
-		if (chars[i] === filler) return false;
+		if (chars[i] === filler && chars[i] !== pattern[i]) return false;
 		if (!charMatchesRegexPattern(pattern[i], chars[i])) return false;
 	}
 	return true;
@@ -158,14 +160,14 @@ export function checkForAddingOrReplacing(input, oldMask, inputStop, maskPattern
 }
 
 export function oldToNewMask(characters, oldMask, start, pattern, filler) {
-	let replacePattern = pattern.slice(start).replace(/[A1W*]/g, "")
+	let replacePattern = pattern.slice(start).replace(/[A1W*]/g, "");
 	let charBank = characters;
 	let newMask = oldMask.slice(0, start) + oldMask.slice(start).split("").map((char, index) => {
 		if (char === replacePattern[0]) {
+			if (charBank[0] === replacePattern[0]) charBank = charBank.slice(1)
 			replacePattern = replacePattern.slice(1);
 			return char;
-		}
-		else if (charBank) {
+		} else if (charBank) {
 			let replacement = charBank[0];
 			charBank = charBank.slice(1);
 			return replacement;
@@ -184,9 +186,10 @@ function charMatchesRegexPattern(pattern, char) {
 	if (pattern === "1") return /\d/.test(char);
 	if (pattern === "W") return /[A-Za-z0-9]/.test(char);
 	if (pattern === "*") return /./.test(char);
+	return true;
 }
 
-export function getMaskSlice(pattern, start, stop) {
+export function getMaskSlice(pattern, input, start, stop) {
 	let totalRequired = stop - start;
 	let found = "";
 	let i = start;
@@ -194,13 +197,16 @@ export function getMaskSlice(pattern, start, stop) {
 	while (found.length < totalRequired) {
 		if (/[A1W*]/.test(pattern[i])) {
 			found += pattern[i];
+		} else if (pattern[i] === input[i]) {
+			found += pattern[i];
+			selectionMove++;
 		} else {
-			selectionMove++
+			selectionMove++;
 		}
-			if (i >= pattern.length - 1) {
-				break;
-			}
-			i++;
+		if (i >= pattern.length - 1) {
+			break;
+		}
+		i++;
 	}
 	return {maskSlice: found, selectionMove};
 }
@@ -220,6 +226,9 @@ export function valueToMask(value, maskPattern, filler = " ") {
 				charBank = charBank.slice(1);
 				return nextChar || filler;
 			} else return false;
+		} else if (patternChar === charBank[0]) {
+			charBank = charBank.slice(1);
+			return patternChar;
 		} else return patternChar;
 	})
 	return filledMask.indexOf(false) === -1 ? filledMask.join("") : false;
