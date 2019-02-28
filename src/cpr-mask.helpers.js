@@ -40,6 +40,8 @@ export function handleMasks(input) {
 	if (mask.pattern !== this.state.maskPattern) {
 		//Mask a new newMask
 		newMask = valueToMask(newValue, mask.pattern, this.props.filler);
+		//Use new pattern to get newValue
+		newValue = maskToValue(newMask, mask.pattern, this.props.filler);
 		//If that fails
 		if (newMask === false) {
 			//stick with the old mask
@@ -129,7 +131,7 @@ export function deleting(input, oldMask, maskPattern, cursor, filler) {
 
 export function checkCharsMatchPattern(pattern, chars, filler) {
 	for (let i = 0; i < pattern.length; i++) {
-		if (chars[i] === filler) return false;
+		if (chars[i] === filler && chars[i] !== pattern[i]) return false;
 		if (!charMatchesRegexPattern(pattern[i], chars[i])) return false;
 	}
 	return true;
@@ -224,6 +226,9 @@ export function valueToMask(value, maskPattern, filler = " ") {
 				charBank = charBank.slice(1);
 				return nextChar || filler;
 			} else return false;
+		} else if (patternChar === charBank[0]) {
+			charBank = charBank.slice(1);
+			return patternChar;
 		} else return patternChar;
 	})
 	return filledMask.indexOf(false) === -1 ? filledMask.join("") : false;

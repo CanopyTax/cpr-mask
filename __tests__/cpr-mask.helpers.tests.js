@@ -214,6 +214,9 @@ describe("inputControl", () => {
     it("Should take character and fill spots - out of order 2", () => {
       expect(oldToNewMask("sdf", " - - - -", 4, "A-A-A-A-")).toBe(" - -s-d-f")
     })
+    it("should handle pasteing values that include the pattern", () => {
+      expect(oldToNewMask("123-45-6789", "   -  -    ", 0, "111-11-1111", " ")).toBe("123-45-6789")
+    })
   })
   describe("checkCharsMatchPattern", () => {
     it("should accept a valid input", () => {
@@ -224,6 +227,9 @@ describe("inputControl", () => {
     })
     it("should deny an invalid input", () => {
       expect(checkCharsMatchPattern("A1W", "125")).toBe(false);
+    })
+    it("should accept an input when the pattern matches the filler", () => {
+      expect(checkCharsMatchPattern("(111) 1-1", "(801) 2-4", " ")).toBe(true);
     })
   })
   describe("checkForAddingOrReplacing", () => {
@@ -352,6 +358,9 @@ describe("inputControl", () => {
     })
     it("should handle skipped values", () => {
       expect(valueToMask("12 4", "1--1-1-1")).toBe("1--2- -4")
+    })
+    it("should keep the value even a character matches a pattern character", () => {
+      expect(valueToMask("12345-6789", "11111-1111")).toBe("12345-6789")
     })
   })
   describe("getNewMaskCursor", () => {
