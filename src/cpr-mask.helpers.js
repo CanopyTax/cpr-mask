@@ -234,7 +234,7 @@ export function valueToMask(value, maskPattern, filler = " ") {
 	return filledMask.indexOf(false) === -1 ? filledMask.join("") : false;
 }
 
-export function maskToValue(maskValue, maskPattern, filler = " ") {
+export function maskToValue(maskValue = "", maskPattern, filler = " ") {
 	let whitedValue = maskValue.split("").filter((char, index) => {
 		return (/[A1W*]/.test(maskPattern[index]) || maskPattern[index] === undefined)
 	});
