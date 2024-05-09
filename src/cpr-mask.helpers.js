@@ -235,6 +235,9 @@ export function valueToMask(value, maskPattern, filler = " ") {
 }
 
 export function maskToValue(maskValue = '', maskPattern, filler = " ") {
+  if (typeof maskValue !== 'string') {
+    return ''
+  }
 	let whitedValue = maskValue.split("").filter((char, index) => {
 		return (/[A1W*]/.test(maskPattern[index]) || maskPattern[index] === undefined)
 	});
